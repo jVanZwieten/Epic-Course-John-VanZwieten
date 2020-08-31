@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: de45be31bcbc840de83efa207e7ea56b
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Barrel_Tip
+    100002: Barrel_Tip_2
+    100004: Barrel_to_Spin_1
+    100006: Barrel_to_Spin_2
+    100008: Barrels
+    100010: Barrels_2
+    100012: //RootNode
+    100014: Mini_Gun_Braces
+    100016: Mini_Gun_Braces_2
+    100018: Rot_X
+    100020: Rot_Y
+    100022: Turret_Base
+    100024: Turret_Main_Body
+    100026: Turret_Support
+    400000: Barrel_Tip
+    400002: Barrel_Tip_2
+    400004: Barrel_to_Spin_1
+    400006: Barrel_to_Spin_2
+    400008: Barrels
+    400010: Barrels_2
+    400012: //RootNode
+    400014: Mini_Gun_Braces
+    400016: Mini_Gun_Braces_2
+    400018: Rot_X
+    400020: Rot_Y
+    400022: Turret_Base
+    400024: Turret_Main_Body
+    400026: Turret_Support
+    2100000: Dual_Barrel_Gatling_Gun_Base
+    2100002: Dual_Barrel_Gatling_Gun_Main_Body
+    2100004: Gatling_Gun_Barrel
+    2300000: Barrel_Tip
+    2300002: Barrel_Tip_2
+    2300004: Barrels
+    2300006: Barrels_2
+    2300008: Mini_Gun_Braces
+    2300010: Mini_Gun_Braces_2
+    2300012: Turret_Base
+    2300014: Turret_Main_Body
+    2300016: Turret_Support
+    3300000: Barrel_Tip
+    3300002: Barrel_Tip_2
+    3300004: Barrels
+    3300006: Barrels_2
+    3300008: Mini_Gun_Braces
+    3300010: Mini_Gun_Braces_2
+    3300012: Turret_Base
+    3300014: Turret_Main_Body
+    3300016: Turret_Support
+    4300000: Turret_Base
+    4300002: Turret_Support
+    4300004: Turret_Main_Body
+    4300006: Barrels
+    4300008: Barrel_Tip
+    4300010: Mini_Gun_Braces
+    4300012: Barrels_2
+    4300014: Barrel_Tip_2
+    4300016: Mini_Gun_Braces_2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dual_Barrel_Gatling_Gun_Base
+    second: {fileID: 2100000, guid: 450eca9dd33b040868423107f20e553f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dual_Barrel_Gatling_Gun_Main_Body
+    second: {fileID: 2100000, guid: 8b2d216ced08445d785e7427ec54da2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gatling_Gun_Barrel
+    second: {fileID: 2100000, guid: 0d78f06e2000f4165ba7652a1f96bde7, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: a20ce2bf8b9f44bf8ad67d2d2fbe1337
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Barrel_Tip
+    100002: Barrel_to_Spin
+    100004: Barrels
+    100006: //RootNode
+    100008: Mini_Gun_Base
+    100010: Mini_Gun_Braces
+    100012: Rotate
+    100014: Turret_Base
+    100016: Turret_Bottom_Of_Gun
+    400000: Barrel_Tip
+    400002: Barrel_to_Spin
+    400004: Barrels
+    400006: //RootNode
+    400008: Mini_Gun_Base
+    400010: Mini_Gun_Braces
+    400012: Rotate
+    400014: Turret_Base
+    400016: Turret_Bottom_Of_Gun
+    2100000: Gatling_Gun_Barrel
+    2100002: Turret_Base
+    2100004: Gatling_Gun
+    2300000: Barrel_Tip
+    2300002: Barrels
+    2300004: Mini_Gun_Base
+    2300006: Mini_Gun_Braces
+    2300008: Turret_Base
+    2300010: Turret_Bottom_Of_Gun
+    3300000: Barrel_Tip
+    3300002: Barrels
+    3300004: Mini_Gun_Base
+    3300006: Mini_Gun_Braces
+    3300008: Turret_Base
+    3300010: Turret_Bottom_Of_Gun
+    4300000: Barrels
+    4300002: Barrel_Tip
+    4300004: Mini_Gun_Braces
+    4300006: Turret_Bottom_Of_Gun
+    4300008: Mini_Gun_Base
+    4300010: Turret_Base
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gatling_Gun
+    second: {fileID: 2100000, guid: 8e1c2ac8bae8c4b8c9b30412d25f3627, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gatling_Gun_Barrel
+    second: {fileID: 2100000, guid: 748784069bb8d404d9e637e8c7954e08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turret_Base
+    second: {fileID: 2100000, guid: 2d3aa707fa17944d5be682b4375cddec, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
