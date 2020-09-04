@@ -1,4 +1,5 @@
 ﻿using Scripts.Enemys;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,13 +18,13 @@ namespace Scripts.Managers
         [SerializeField]
         private int _individualSpawnDelay;
 
-        private SpawnManager _instance;
-        public SpawnManager Instance
+        private static SpawnManager _instance;
+        public static SpawnManager Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = this;
+                    throw new NullReferenceException("SpawnManager not instantiated");
 
                 return _instance;
             }
@@ -60,7 +61,7 @@ namespace Scripts.Managers
 
         private Enemy SpawnRandomEnemy()
         {
-            int randomSelection = Random.Range(0, _enemyPrototypes.Length);
+            int randomSelection = UnityEngine.Random.Range(0, _enemyPrototypes.Length);
 
             return Instantiate(_enemyPrototypes[randomSelection], _spawnLocation.position, _spawnLocation.rotation)
                 .GetComponent<Enemy>();
