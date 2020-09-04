@@ -29,8 +29,6 @@ namespace Scripts.Managers
             }
         }
 
-        //private int _currentWave;
-
         private void Awake()
         {
             _instance = this;
@@ -38,9 +36,6 @@ namespace Scripts.Managers
 
         private void Start()
         {
-            //_currentWave = 1;
-
-
             StartCoroutine(SpawnWaves(_waves));
         }
 
