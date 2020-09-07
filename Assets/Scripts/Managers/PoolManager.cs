@@ -10,7 +10,7 @@ namespace Scripts.Managers
     public class PoolManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject[] _enemyPrototypes;
+        private GameObject[] _enemyPrefabs;
         [SerializeField]
         private Transform _spawnLocation, _destination;
         [SerializeField]
@@ -87,9 +87,9 @@ namespace Scripts.Managers
 
         private GameObject SpawnRandomEnemy()
         {
-            int randomSelection = UnityEngine.Random.Range(0, _enemyPrototypes.Length);
+            int randomSelection = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
 
-            GameObject enemy= Instantiate(_enemyPrototypes[randomSelection], _spawnLocation.position, _spawnLocation.rotation);
+            GameObject enemy= Instantiate(_enemyPrefabs[randomSelection], _spawnLocation.position, _spawnLocation.rotation);
             enemy.transform.parent = _enemycontainer;
             enemy.GetComponent<Enemy>().NavigateTo(_destination);
 

@@ -13,12 +13,7 @@ namespace Scripts.Enemys
         protected int _killValue;
         protected NavMeshAgent _agent;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        public void NavigateTo(Transform destination)
+        public virtual void NavigateTo(Transform destination)
         {
             if (_agent == null)
                 _agent = GetComponent<NavMeshAgent>();
@@ -26,7 +21,7 @@ namespace Scripts.Enemys
             _agent.destination = destination.position;
         }
 
-        public void Heal()
+        public virtual void Heal()
         {
             _health = _maxHealth;
         }
