@@ -8,9 +8,8 @@ namespace Scripts.Managers
     public class SpawnManager : MonoBehaviour
     {
         [SerializeField]
-        private Transform _spawnLocation, _destination;
-        [SerializeField]
-        private GameObject[] _enemyPrototypes;
+        private PoolManager _poolManager;
+
         [SerializeField]
         private int _waves;
         [SerializeField]
@@ -53,18 +52,11 @@ namespace Scripts.Managers
         {
             for (int i = 0; i < currentWave; i++)
             {
-                Enemy enemy = SpawnRandomEnemy();
-                enemy.NavigateTo(_destination);
+                _poolManager.GetNewRandomEnemy();
                 yield return new WaitForSeconds(_individualSpawnDelay);
             }
         }
 
-        private Enemy SpawnRandomEnemy()
-        {
-            int randomSelection = UnityEngine.Random.Range(0, _enemyPrototypes.Length);
 
-            return Instantiate(_enemyPrototypes[randomSelection], _spawnLocation.position, _spawnLocation.rotation)
-                .GetComponent<Enemy>();
-        }
     }
 }

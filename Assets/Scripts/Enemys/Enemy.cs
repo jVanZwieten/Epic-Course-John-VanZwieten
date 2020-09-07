@@ -6,6 +6,8 @@ namespace Scripts.Enemys
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField]
+        protected int _maxHealth;
+        [SerializeField]
         protected int _health;
         [SerializeField]
         protected int _killValue;
@@ -22,6 +24,11 @@ namespace Scripts.Enemys
                 _agent = GetComponent<NavMeshAgent>();
 
             _agent.destination = destination.position;
+        }
+
+        public void Heal()
+        {
+            _health = _maxHealth;
         }
     }
 }
