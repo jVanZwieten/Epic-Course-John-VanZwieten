@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,15 +10,7 @@ namespace Scripts.Managers
 {
     public class PoolManager : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject[] _enemyPrefabs;
-        [SerializeField]
-        private Transform _spawnLocation, _destination;
-        [SerializeField]
-        private Transform _enemycontainer;
-        
-        private List<GameObject> _enemyPool;
-
+        private List<GameObject> _bipedPool, _quadpedPool;
 
 
         private static PoolManager _instance;
@@ -32,68 +25,57 @@ namespace Scripts.Managers
             }
         }
 
-        public GameObject GetNewRandomEnemy()
+        public GameObject GetNewEnemy(EnemyType enemyType)
         {
-            foreach (var enemy in _enemyPool)
+            List<GameObject> pool;
+
+            switch (enemyType)
             {
-                if (!enemy.activeSelf)
-                    return Recycle(enemy);
+                case EnemyType.Biped:
+                    pool = _bipedPool;
+                    break;
+                case EnemyType.Quadped:
+                    pool = _quadpedPool;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            return AddNewRandomEnemy();
+            var enemy = pool.FirstOrDefault(biped => !biped.activeSelf);
+            if (enemy != null)
+                enemy.GetComponent<Enemy>().Recycle();
+            else
+            {
+                enemy = SpawnManager.Instance.SpawnEnemy(enemyType);
+                pool.Add(enemy);
+            }
+
+            return enemy;
         }
 
         private void Awake()
         {
             _instance = this;
-        }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            _enemyPool = new List<GameObject>();
+
+            _bipedPool = new List<GameObject>();
+            _quadpedPool = new List<GameObject>();
         }
 
         private void Update()
         {
+            var enemyPool = _bipedPool.Concat(_quadpedPool).ToList();
+
             if (Input.GetKeyDown(KeyCode.Space))
-                for (int i = 0; i < _enemyPool.Count; i++)
+                for (int i = 0; i < enemyPool.Count; i++)
                 {
-                    int randomI = UnityEngine.Random.Range(0, _enemyPool.Count);
-                    if (_enemyPool[randomI].activeSelf)
+                    int randomI = UnityEngine.Random.Range(0, enemyPool.Count);
+                    if (enemyPool[randomI].activeSelf)
                     {
-                        _enemyPool[randomI].SetActive(false);
+                        enemyPool[randomI].SetActive(false);
                         return;
                     }
                 }
-        }
-
-        private GameObject Recycle(GameObject enemy)
-        {
-            enemy.GetComponent<NavMeshAgent>().Warp(_spawnLocation.position);
-            enemy.GetComponent<Enemy>().Heal();
-            //enemy.GetComponent<Enemy>().NavigateTo(_destination);
-            enemy.SetActive(true);
-
-            return enemy;
-        }
-
-        private GameObject AddNewRandomEnemy()
-        {
-            GameObject newRandomEnemy = SpawnRandomEnemy();
-            _enemyPool.Add(newRandomEnemy);
-            return newRandomEnemy;
-        }
-
-        private GameObject SpawnRandomEnemy()
-        {
-            int randomSelection = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
-
-            GameObject enemy= Instantiate(_enemyPrefabs[randomSelection], _spawnLocation.position, _spawnLocation.rotation);
-            enemy.transform.parent = _enemycontainer;
-            enemy.GetComponent<Enemy>().NavigateTo(_destination);
-
-            return enemy;
         }
     }
 }

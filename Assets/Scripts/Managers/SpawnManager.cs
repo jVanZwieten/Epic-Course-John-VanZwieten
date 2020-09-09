@@ -8,14 +8,22 @@ namespace Scripts.Managers
     public class SpawnManager : MonoBehaviour
     {
         [SerializeField]
-        private PoolManager _poolManager;
-
-        [SerializeField]
         private int _waves;
         [SerializeField]
         private int _waveDelay;
         [SerializeField]
         private int _individualSpawnDelay;
+        [SerializeField]
+        private GameObject[] _enemyPrefabs;
+        [SerializeField]
+        private Transform _enemycontainer;
+
+        [SerializeField]
+        private Transform _spawnLocation;
+        public Transform SpawnLocation { get { return _spawnLocation; } }
+        [SerializeField]
+        private Transform _enemyDestination;
+        public Transform EnemyDestination { get { return _enemyDestination; } }
 
         private static SpawnManager _instance;
         public static SpawnManager Instance
@@ -27,6 +35,15 @@ namespace Scripts.Managers
 
                 return _instance;
             }
+        }
+
+
+        public GameObject SpawnEnemy(EnemyType enemyType)
+        {
+            GameObject enemy = Instantiate(_enemyPrefabs[(int)enemyType], SpawnLocation.position, SpawnLocation.rotation);
+            enemy.transform.parent = _enemycontainer;
+
+            return enemy;
         }
 
         private void Awake()
@@ -52,11 +69,23 @@ namespace Scripts.Managers
         {
             for (int i = 0; i < currentWave; i++)
             {
-                _poolManager.GetNewRandomEnemy();
+                GetNewRandomEnemy();
                 yield return new WaitForSeconds(_individualSpawnDelay);
             }
         }
 
+        private GameObject GetNewRandomEnemy()
+        {
+            EnemyType randomType = ChooseRandomEnemyType();
+            return PoolManager.Instance.GetNewEnemy(randomType);
+        }
 
+
+        private EnemyType ChooseRandomEnemyType()
+        {
+            var enemyTypes = (EnemyType[])Enum.GetValues(typeof(EnemyType));
+            int random = UnityEngine.Random.Range(0, enemyTypes.Length);
+            return enemyTypes[random];
+        }
     }
 }
