@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scripts.Managers
 {
-    public class SpawnManager : MonoBehaviour
+    public class SpawnManager : MonoSingleton<SpawnManager>
     {
         [SerializeField]
         private int _waves;
@@ -25,30 +25,13 @@ namespace Scripts.Managers
         private Transform _enemyDestination;
         public Transform EnemyDestination { get { return _enemyDestination; } }
 
-        private static SpawnManager _instance;
-        public static SpawnManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    throw new NullReferenceException("SpawnManager not instantiated");
-
-                return _instance;
-            }
-        }
-
-
+        
         public GameObject SpawnEnemy(EnemyType enemyType)
         {
             GameObject enemy = Instantiate(_enemyPrefabs[(int)enemyType], SpawnLocation.position, SpawnLocation.rotation);
             enemy.transform.parent = _enemycontainer;
 
             return enemy;
-        }
-
-        private void Awake()
-        {
-            _instance = this;
         }
 
         private void Start()

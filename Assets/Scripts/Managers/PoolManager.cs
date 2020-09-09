@@ -8,22 +8,10 @@ using UnityEngine.AI;
 
 namespace Scripts.Managers
 {
-    public class PoolManager : MonoBehaviour
+    public class PoolManager : MonoSingleton<PoolManager>
     {
         private List<GameObject> _bipedPool, _quadpedPool;
 
-
-        private static PoolManager _instance;
-        public static PoolManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    throw new NullReferenceException("PoolManager not instantiated");
-
-                return _instance;
-            }
-        }
 
         public GameObject GetNewEnemy(EnemyType enemyType)
         {
@@ -53,9 +41,9 @@ namespace Scripts.Managers
             return enemy;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
-            _instance = this;
+            base.Awake();
 
 
             _bipedPool = new List<GameObject>();
