@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 namespace Scripts.Enemys
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField]
@@ -30,7 +31,6 @@ namespace Scripts.Enemys
 
         public virtual void Recycle()
         {
-            gameObject.SetActive(true);
             Warp(_spawnLocation);
             Heal();
         }
@@ -41,15 +41,11 @@ namespace Scripts.Enemys
             transform.rotation = warpLocation.rotation;
         }
 
-        protected virtual void Start()
+        protected virtual void OnEnable()
         {
+            Recycle();
             NavigateTo(_destination);
         }
-
-        //protected virtual void OnEnable()
-        //{
-        //    NavigateTo(_destination);
-        //}
     }
 
     public enum EnemyType

@@ -52,7 +52,8 @@ namespace Scripts.Managers
         {
             for (int i = 0; i < currentWave; i++)
             {
-                GetNewRandomEnemy();
+                var nextEnemy=GetNewRandomEnemy();
+                nextEnemy.SetActive(true);
                 yield return new WaitForSeconds(_individualSpawnDelay);
             }
         }

@@ -29,19 +29,17 @@ namespace Scripts.Managers
                     throw new ArgumentOutOfRangeException();
             }
 
-            var enemy = pool.FirstOrDefault(biped => !biped.activeSelf);
-            if (enemy != null)
-                enemy.GetComponent<Enemy>().Recycle();
-            else
+            var enemy = pool.FirstOrDefault(e => !e.activeSelf);
+            if (enemy == null)
             {
                 enemy = SpawnManager.Instance.SpawnEnemy(enemyType);
                 pool.Add(enemy);
             }
-
+                
             return enemy;
         }
 
-        protected override void Awake()
+    protected override void Awake()
         {
             base.Awake();
 
