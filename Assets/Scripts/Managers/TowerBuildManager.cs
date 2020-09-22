@@ -39,6 +39,10 @@ namespace Scripts.Managers
             {
                 EnterPlacementMode(0);
             }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                EnterPlacementMode(1);
+            }
             else if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 ExitPlacementMode();
