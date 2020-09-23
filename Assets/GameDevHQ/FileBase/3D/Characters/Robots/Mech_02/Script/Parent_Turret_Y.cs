@@ -5,7 +5,7 @@ using UnityEngine;
 public class Parent_Turret_Y : MonoBehaviour
 {
 
-    public GameObject Parent_Point;
+    public UnityEngine.GameObject Parent_Point;
 
 
 

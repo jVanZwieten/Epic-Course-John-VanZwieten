@@ -1,4 +1,5 @@
 ﻿using Scripts.Managers;
+using System;
 using UnityEngine;
 
 namespace Scripts.Towers
@@ -26,22 +27,41 @@ namespace Scripts.Towers
         {
             if (placementMode && !IsBuiltOn)
             {
-                _particleSystem.Play();
-                TowerBuildManager.TowerGhostMove += OnTowerGhostMove;
+                Show();
             }
             else if (_particleSystem.isPlaying)
             {
-                _particleSystem.Stop();
-                TowerBuildManager.TowerGhostMove -= OnTowerGhostMove;
+                Hide();
+            }
+        }
+
+        private void Hide()
+        {
+            _particleSystem.Stop();
+            TowerBuildManager.TowerGhostMove -= OnTowerGhostMove;
+            TowerBuildManager.TowerBuilt -= OnTowerBuilt;
+        }
+
+        private void Show()
+        {
+            _particleSystem.Play();
+            TowerBuildManager.TowerGhostMove += OnTowerGhostMove;
+            TowerBuildManager.TowerBuilt += OnTowerBuilt;
+        }
+
+        private void OnTowerBuilt(GameObject Tower)
+        {
+            if (Tower.transform.position == transform.position)
+            {
+                IsBuiltOn = true;
+                Hide();
             }
         }
 
         private void OnTowerGhostMove(Vector3 towerGhostPosition)
         {
             if (WithinSnapZone(towerGhostPosition))
-            {
                 TowerGhostSnapToSlot(this);
-            }
         }
 
         private bool WithinSnapZone(Vector3 towerGhostPosition) => 

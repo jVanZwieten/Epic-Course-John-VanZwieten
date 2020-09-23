@@ -10,12 +10,12 @@ namespace Scripts.Managers
 {
     public class PoolManager : MonoSingleton<PoolManager>
     {
-        private List<GameObject> _bipedPool, _quadpedPool;
+        private List<UnityEngine.GameObject> _bipedPool, _quadpedPool;
 
 
-        public GameObject GetNewEnemy(EnemyType enemyType)
+        public UnityEngine.GameObject GetNewEnemy(EnemyType enemyType)
         {
-            List<GameObject> pool;
+            List<UnityEngine.GameObject> pool;
 
             switch (enemyType)
             {
@@ -44,8 +44,8 @@ namespace Scripts.Managers
             base.Awake();
 
 
-            _bipedPool = new List<GameObject>();
-            _quadpedPool = new List<GameObject>();
+            _bipedPool = new List<UnityEngine.GameObject>();
+            _quadpedPool = new List<UnityEngine.GameObject>();
         }
 
         private void Update()

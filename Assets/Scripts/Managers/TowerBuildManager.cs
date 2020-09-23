@@ -7,9 +7,12 @@ namespace Scripts.Managers
     public class TowerBuildManager : MonoSingleton<TowerBuildManager>
     {
         [SerializeField]
-        private List<TowerGhost> _buildableTowers;
+        private List<TowerGhost> _ghostTowers;
+        [SerializeField]
+        private List<GameObject> _buildableTowers;
 
         private bool _towerPlacementMode;
+        private bool _buildIsAllowed;
         private TowerGhost _towerGhost;
 
         private bool mouseMoved => Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0;
@@ -27,35 +30,51 @@ namespace Scripts.Managers
         public delegate void TowerPlacementModeToggleEventHandler(bool placementMode);
         public static event TowerPlacementModeToggleEventHandler TowerPlacementModeToggle;
 
+        public delegate void TowerBuiltEventHandler(GameObject Tower);
+        public static event TowerBuiltEventHandler TowerBuilt;
+
 
         void Start()
         {
             _towerPlacementMode = false;
+            TowerSlot.TowerGhostSnapToSlot += OnTowerGhostSnapToSlot;
+        }
+
+        private void OnTowerGhostSnapToSlot(TowerSlot towerSlot)
+        {
+            _buildIsAllowed = true;
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
                 EnterPlacementMode(0);
-            }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
                 EnterPlacementMode(1);
-            }
+            else if (Input.GetKeyDown(KeyCode.Mouse0) && _buildIsAllowed)
+                InstantiateTower(_towerGhost);
             else if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
                 ExitPlacementMode();
-            }
 
             if (_towerPlacementMode && mouseMoved)
                 TowerGhostUpdate();
         }
+
+        private void InstantiateTower(TowerGhost towerGhost)
+        {
+            var towerOption = _ghostTowers.FindIndex(ghost => ghost == towerGhost);
+            var newTowerPrefab = _buildableTowers[towerOption];
+
+            var newTower = Instantiate(newTowerPrefab, _towerGhost.transform.position, _towerGhost.transform.rotation);
+
+            TowerBuilt(newTower);
+        }
+
         private void EnterPlacementMode(int towerSelection)
         {
             _towerPlacementMode = true;
 
-            SetTowerGhost(_buildableTowers[towerSelection]);
+            SetTowerGhost(_ghostTowers[towerSelection]);
 
             TowerPlacementModeToggle(_towerPlacementMode);
         }
@@ -86,10 +105,16 @@ namespace Scripts.Managers
             if (hitPoint.HasValue)
             {
                 _towerGhost.transform.position = hitPoint.Value;
-                _towerGhost.ChangeColor(BuildDisallowedColor);
+                DissallowBuild();
 
                 TowerGhostMove(hitPoint.Value);
             }
+        }
+
+        private void DissallowBuild()
+        {
+            _towerGhost.ChangeColor(BuildDisallowedColor);
+            _buildIsAllowed = false;
         }
     }
 }

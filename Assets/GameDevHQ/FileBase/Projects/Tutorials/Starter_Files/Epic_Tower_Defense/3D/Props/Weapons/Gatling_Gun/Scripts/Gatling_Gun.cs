@@ -22,7 +22,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
     public class Gatling_Gun : MonoBehaviour
     {
         private Transform _gunBarrel; //Reference to hold the gun barrel
-        public GameObject Muzzle_Flash; //reference to the muzzle flash effect to play when firing
+        public UnityEngine.GameObject Muzzle_Flash; //reference to the muzzle flash effect to play when firing
         public ParticleSystem bulletCasings; //reference to the bullet casing effect to play when firing
         public AudioClip fireSound; //Reference to the audio clip
 
@@ -32,7 +32,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         // Use this for initialization
         void Start()
         {
-            _gunBarrel = GameObject.Find("Barrel_to_Spin").GetComponent<Transform>(); //assigning the transform of the gun barrel to the variable
+            _gunBarrel = UnityEngine.GameObject.Find("Barrel_to_Spin").GetComponent<Transform>(); //assigning the transform of the gun barrel to the variable
             Muzzle_Flash.SetActive(false); //setting the initial state of the muzzle flash effect to off
             _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
             _audioSource.playOnAwake = false; //disabling play on awake

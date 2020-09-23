@@ -26,11 +26,8 @@ namespace Scripts.Towers
         private void OnTowerPlacementModeToggle(bool placementMode)
         {
             if (!placementMode)
-            {
                 gameObject.SetActive(false);
-            }
         }
-
 
         private void OnTowerGhostSnapToSlot(TowerSlot towerSlot)
         {
