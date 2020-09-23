@@ -14039,9 +14039,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d03371a33fae45a313da9eba77c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildableTowers:
+  _ghostTowers:
   - {fileID: 279743409}
   - {fileID: 172579922}
+  _buildableTowers:
+  - {fileID: 1425032208015248, guid: 75f3d166786e1cb40afc4396cd0bcc22, type: 3}
+  - {fileID: 1821146363788296, guid: 23a8b9b94225d3845aed312b792882a9, type: 3}
   _buildAllowedColor: {r: 0, g: 1, b: 0.09941673, a: 0.39607844}
   _buildDisallowedColor: {r: 1, g: 0, b: 0, a: 0.39607844}
 --- !u!1001 &2131010537
