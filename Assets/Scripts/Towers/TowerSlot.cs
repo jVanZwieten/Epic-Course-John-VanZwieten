@@ -13,14 +13,13 @@ namespace Scripts.Towers
 
         public bool IsBuiltOn { get; set; }
 
-        public delegate void TowerGhostSnapToSlotEventHandler(TowerSlot towerSlot);
-        public static event TowerGhostSnapToSlotEventHandler TowerGhostSnapToSlot;
+        public static event Action<TowerSlot> onTowerGhostSnapToSlot;
 
 
         private void Start()
         {
             _particleSystem = GetComponent<ParticleSystem>();
-            TowerBuildManager.TowerPlacementModeToggle += OnTowerPlacementModeToggle;
+            TowerBuildManager.onTowerPlacementModeToggle += OnTowerPlacementModeToggle;
         }
 
         private void OnTowerPlacementModeToggle(bool placementMode)
@@ -38,15 +37,15 @@ namespace Scripts.Towers
         private void Hide()
         {
             _particleSystem.Stop();
-            TowerBuildManager.TowerGhostMove -= OnTowerGhostMove;
-            TowerBuildManager.TowerBuilt -= OnTowerBuilt;
+            TowerBuildManager.onTowerGhostMove -= OnTowerGhostMove;
+            TowerBuildManager.onTowerBuilt -= OnTowerBuilt;
         }
 
         private void Show()
         {
             _particleSystem.Play();
-            TowerBuildManager.TowerGhostMove += OnTowerGhostMove;
-            TowerBuildManager.TowerBuilt += OnTowerBuilt;
+            TowerBuildManager.onTowerGhostMove += OnTowerGhostMove;
+            TowerBuildManager.onTowerBuilt += OnTowerBuilt;
         }
 
         private void OnTowerBuilt(GameObject Tower)
@@ -61,7 +60,7 @@ namespace Scripts.Towers
         private void OnTowerGhostMove(Vector3 towerGhostPosition)
         {
             if (WithinSnapZone(towerGhostPosition))
-                TowerGhostSnapToSlot(this);
+                onTowerGhostSnapToSlot(this);
         }
 
         private bool WithinSnapZone(Vector3 towerGhostPosition) => 

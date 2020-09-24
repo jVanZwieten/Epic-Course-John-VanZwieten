@@ -10,8 +10,8 @@ namespace Scripts.Towers
 
         void Start()
         {
-            TowerBuildManager.TowerPlacementModeToggle += OnTowerPlacementModeToggle;
-            TowerSlot.TowerGhostSnapToSlot += OnTowerGhostSnapToSlot;
+            TowerBuildManager.onTowerPlacementModeToggle += OnTowerPlacementModeToggle;
+            TowerSlot.onTowerGhostSnapToSlot += OnTowerGhostSnapToSlot;
         }
 
         void OnEnable()

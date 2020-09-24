@@ -7,9 +7,8 @@ namespace Scripts
         public static RaycastHit? RaycastToMouse()
         {
             Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
 
-            Physics.Raycast(rayOrigin, out hitInfo);
+            Physics.Raycast(rayOrigin, out RaycastHit hitInfo);
             return hitInfo;
         }
     }

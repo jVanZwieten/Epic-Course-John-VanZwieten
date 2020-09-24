@@ -14,7 +14,7 @@ namespace Scripts.Managers
         [SerializeField]
         private int _individualSpawnDelay;
         [SerializeField]
-        private UnityEngine.GameObject[] _enemyPrefabs;
+        private GameObject[] _enemyPrefabs;
         [SerializeField]
         private Transform _enemycontainer;
 
@@ -26,9 +26,9 @@ namespace Scripts.Managers
         public Transform EnemyDestination { get { return _enemyDestination; } }
 
         
-        public UnityEngine.GameObject SpawnEnemy(EnemyType enemyType)
+        public GameObject SpawnEnemy(EnemyType enemyType)
         {
-            UnityEngine.GameObject enemy = Instantiate(_enemyPrefabs[(int)enemyType], SpawnLocation.position, SpawnLocation.rotation);
+            GameObject enemy = Instantiate(_enemyPrefabs[(int)enemyType], SpawnLocation.position, SpawnLocation.rotation);
             enemy.transform.parent = _enemycontainer;
 
             return enemy;
@@ -58,12 +58,11 @@ namespace Scripts.Managers
             }
         }
 
-        private UnityEngine.GameObject GetNewRandomEnemy()
+        private GameObject GetNewRandomEnemy()
         {
             EnemyType randomType = ChooseRandomEnemyType();
             return PoolManager.Instance.GetNewEnemy(randomType);
         }
-
 
         private EnemyType ChooseRandomEnemyType()
         {

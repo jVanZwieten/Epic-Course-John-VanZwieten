@@ -1,21 +1,19 @@
 ﻿using Scripts.Enemys;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Scripts.Managers
 {
     public class PoolManager : MonoSingleton<PoolManager>
     {
-        private List<UnityEngine.GameObject> _bipedPool, _quadpedPool;
+        private List<GameObject> _bipedPool, _quadpedPool;
 
 
-        public UnityEngine.GameObject GetNewEnemy(EnemyType enemyType)
+        public GameObject GetNewEnemy(EnemyType enemyType)
         {
-            List<UnityEngine.GameObject> pool;
+            List<GameObject> pool;
 
             switch (enemyType)
             {
@@ -44,15 +42,16 @@ namespace Scripts.Managers
             base.Awake();
 
 
-            _bipedPool = new List<UnityEngine.GameObject>();
-            _quadpedPool = new List<UnityEngine.GameObject>();
+            _bipedPool = new List<GameObject>();
+            _quadpedPool = new List<GameObject>();
         }
 
         private void Update()
         {
-            var enemyPool = _bipedPool.Concat(_quadpedPool).ToList();
-
             if (Input.GetKeyDown(KeyCode.Space))
+            {
+                var enemyPool = _bipedPool.Concat(_quadpedPool).ToList();
+
                 for (int i = 0; i < enemyPool.Count; i++)
                 {
                     int randomI = UnityEngine.Random.Range(0, enemyPool.Count);
@@ -62,6 +61,7 @@ namespace Scripts.Managers
                         return;
                     }
                 }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Scripts.Towers;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,20 +25,14 @@ namespace Scripts.Managers
         private Color _buildDisallowedColor;
         public Color BuildDisallowedColor { get { return _buildDisallowedColor; } }
 
-        public delegate void TowerGhostMoveEventHandler(Vector3 towerGhostPosition);
-        public static event TowerGhostMoveEventHandler TowerGhostMove;
-
-        public delegate void TowerPlacementModeToggleEventHandler(bool placementMode);
-        public static event TowerPlacementModeToggleEventHandler TowerPlacementModeToggle;
-
-        public delegate void TowerBuiltEventHandler(GameObject Tower);
-        public static event TowerBuiltEventHandler TowerBuilt;
-
+        public static event Action<Vector3> onTowerGhostMove;
+        public static event Action<bool> onTowerPlacementModeToggle;
+        public static event Action<GameObject> onTowerBuilt;
 
         void Start()
         {
             _towerPlacementMode = false;
-            TowerSlot.TowerGhostSnapToSlot += OnTowerGhostSnapToSlot;
+            TowerSlot.onTowerGhostSnapToSlot += OnTowerGhostSnapToSlot;
         }
 
         private void OnTowerGhostSnapToSlot(TowerSlot towerSlot)
@@ -67,7 +62,7 @@ namespace Scripts.Managers
 
             var newTower = Instantiate(newTowerPrefab, _towerGhost.transform.position, _towerGhost.transform.rotation);
 
-            TowerBuilt(newTower);
+            onTowerBuilt(newTower);
         }
 
         private void EnterPlacementMode(int towerSelection)
@@ -76,14 +71,14 @@ namespace Scripts.Managers
 
             SetTowerGhost(_ghostTowers[towerSelection]);
 
-            TowerPlacementModeToggle(_towerPlacementMode);
+            onTowerPlacementModeToggle(_towerPlacementMode);
         }
 
         private void ExitPlacementMode()
         {
             _towerPlacementMode = false;
 
-            TowerPlacementModeToggle(_towerPlacementMode);
+            onTowerPlacementModeToggle(_towerPlacementMode);
         }
 
 
@@ -107,7 +102,7 @@ namespace Scripts.Managers
                 _towerGhost.transform.position = hitPoint.Value;
                 DissallowBuild();
 
-                TowerGhostMove(hitPoint.Value);
+                onTowerGhostMove(hitPoint.Value);
             }
         }
 
