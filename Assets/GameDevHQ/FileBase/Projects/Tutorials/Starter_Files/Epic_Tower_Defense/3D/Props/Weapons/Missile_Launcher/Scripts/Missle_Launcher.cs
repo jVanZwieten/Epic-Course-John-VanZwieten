@@ -8,9 +8,9 @@ namespace GameDevHQ.FileBase.Missle_Launcher
     public class Missle_Launcher : MonoBehaviour
     {
         [SerializeField]
-        private GameObject _missilePrefab; //holds the missle gameobject to clone
+        private UnityEngine.GameObject _missilePrefab; //holds the missle gameobject to clone
         [SerializeField]
-        private GameObject[] _misslePositions; //array to hold the rocket positions on the turret
+        private UnityEngine.GameObject[] _misslePositions; //array to hold the rocket positions on the turret
         [SerializeField]
         private float _fireDelay; //fire delay between rockets
         [SerializeField]
@@ -38,7 +38,7 @@ namespace GameDevHQ.FileBase.Missle_Launcher
         {
             for (int i = 0; i < _misslePositions.Length; i++) //for loop to iterate through each missle position
             {
-                GameObject rocket = Instantiate(_missilePrefab) as GameObject; //instantiate a rocket
+                UnityEngine.GameObject rocket = Instantiate(_missilePrefab) as UnityEngine.GameObject; //instantiate a rocket
 
                 rocket.transform.parent = _misslePositions[i].transform; //set the rockets parent to the missle launch position 
                 rocket.transform.localPosition = Vector3.zero; //set the rocket position values to zero

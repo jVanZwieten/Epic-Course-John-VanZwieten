@@ -24,7 +24,7 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
         [SerializeField]
         private Transform[] _gunBarrel; //Reference to hold the gun barrel
         [SerializeField]
-        private GameObject[] _muzzleFlash; //reference to the muzzle flash effect to play when firing
+        private UnityEngine.GameObject[] _muzzleFlash; //reference to the muzzle flash effect to play when firing
         [SerializeField]
         private ParticleSystem[] _bulletCasings; //reference to the bullet casing effect to play when firing
         [SerializeField]

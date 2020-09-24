@@ -8,11 +8,11 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
     public class Missle_Launcher : MonoBehaviour
     {
         [SerializeField]
-        private GameObject _missilePrefab; //holds the missle gameobject to clone
+        private UnityEngine.GameObject _missilePrefab; //holds the missle gameobject to clone
         [SerializeField]
-        private GameObject[] _misslePositionsLeft; //array to hold the rocket positions on the turret
+        private UnityEngine.GameObject[] _misslePositionsLeft; //array to hold the rocket positions on the turret
         [SerializeField]
-        private GameObject[] _misslePositionsRight; //array to hold the rocket positions on the turret
+        private UnityEngine.GameObject[] _misslePositionsRight; //array to hold the rocket positions on the turret
         [SerializeField]
         private float _fireDelay; //fire delay between rockets
         [SerializeField]
@@ -40,8 +40,8 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
         {
             for (int i = 0; i < _misslePositionsLeft.Length; i++) //for loop to iterate through each missle position
             {
-                GameObject rocketLeft = Instantiate(_missilePrefab) as GameObject; //instantiate a rocket
-                GameObject rocketRight = Instantiate(_missilePrefab) as GameObject; //instantiate a rocket
+                UnityEngine.GameObject rocketLeft = Instantiate(_missilePrefab) as UnityEngine.GameObject; //instantiate a rocket
+                UnityEngine.GameObject rocketRight = Instantiate(_missilePrefab) as UnityEngine.GameObject; //instantiate a rocket
 
                 rocketLeft.transform.parent = _misslePositionsLeft[i].transform; //set the rockets parent to the missle launch position 
                 rocketRight.transform.parent = _misslePositionsRight[i].transform; //set the rockets parent to the missle launch position 
