@@ -886,9 +886,10 @@ GameObject:
   - component: {fileID: 3150413332376118259}
   - component: {fileID: 3093113341663655285}
   - component: {fileID: 3093113341663655284}
+  - component: {fileID: 3545824013905983171}
   m_Layer: 0
   m_Name: Biped
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -964,7 +965,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 1
   _killValue: 1
-  _destination: {fileID: 0}
+--- !u!65 &3545824013905983171
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092041774195471623}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3092197712335974331
 GameObject:
   m_ObjectHideFlags: 0

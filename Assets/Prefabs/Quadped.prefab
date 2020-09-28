@@ -787,9 +787,10 @@ GameObject:
   - component: {fileID: 5684108567029300532}
   - component: {fileID: -7473086772346816724}
   - component: {fileID: 989252166022755732}
+  - component: {fileID: -4726006341851569196}
   m_Layer: 0
   m_Name: Quadped
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,6 +866,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 0
   _killValue: 0
+--- !u!65 &-4726006341851569196
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5684108567021899442}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5684108567021899444
 GameObject:
   m_ObjectHideFlags: 0
