@@ -25,6 +25,15 @@ namespace Scripts.Towers
         internal virtual void Start()
         {
             _enemiesInRange = new List<Enemy>();
+            Enemy.onEnemyExitField += onEnemyExitField;
+        }
+
+        private void onEnemyExitField(Enemy enemy)
+        {
+            if (_enemiesInRange.Contains(enemy))
+                _enemiesInRange.Remove(enemy);
+            if (target.Equals(enemy))
+                SelectNewTarget();
         }
 
         internal virtual void Update()
@@ -68,9 +77,14 @@ namespace Scripts.Towers
             {
                 _enemiesInRange.Remove(enemy);
 
-                if (target == enemy)
-                    target = _enemiesInRange.FirstOrDefault();
+                if (target.Equals(enemy))
+                    target = SelectNewTarget();
             }
+        }
+
+        private Enemy SelectNewTarget()
+        {
+            return EnemyManager.Instance.Enemies.FirstOrDefault(enemy => _enemiesInRange.Contains(enemy));
         }
     }
 }

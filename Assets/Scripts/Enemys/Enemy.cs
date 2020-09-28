@@ -1,4 +1,5 @@
 ﻿using Scripts.Managers;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,9 @@ namespace Scripts.Enemys
 
         private Transform _spawnLocation => SpawnManager.Instance.SpawnLocation;
         private Transform _destination => SpawnManager.Instance.EnemyDestination;
+
+        public static event Action<Enemy> onEnemyEnterField;
+        public static event Action<Enemy> onEnemyExitField;
 
         public virtual void NavigateTo(Transform destination)
         {
@@ -45,6 +49,12 @@ namespace Scripts.Enemys
         {
             Recycle();
             NavigateTo(_destination);
+            onEnemyEnterField(this);
+        }
+
+        protected virtual void Destroy()
+        {
+            onEnemyExitField(this);
         }
     }
 
