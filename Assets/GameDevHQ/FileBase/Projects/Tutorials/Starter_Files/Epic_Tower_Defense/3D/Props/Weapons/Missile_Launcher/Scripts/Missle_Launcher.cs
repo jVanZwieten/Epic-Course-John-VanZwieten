@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDevHQ.FileBase.Missle_Launcher.Missle;
 using Scripts.Towers;
+using Scripts.Enemys;
 
 namespace GameDevHQ.FileBase.Missle_Launcher
 {
@@ -29,12 +30,6 @@ namespace GameDevHQ.FileBase.Missle_Launcher
         internal override void Update()
         {
             base.Update();
-
-            //if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
-            //{
-            //    _launched = true; //set the launch bool to true
-            //    StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
-            //}
         }
 
         IEnumerator FireRocketsRoutine()
@@ -62,6 +57,17 @@ namespace GameDevHQ.FileBase.Missle_Launcher
             }
 
             _launched = false; //set launch bool to false
+        }
+
+        protected override void Fire(Enemy target)
+        {
+            _launched = true; //set the launch bool to true
+            StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
+        }
+
+        protected override void CeaceFire()
+        {
+            
         }
     }
 }

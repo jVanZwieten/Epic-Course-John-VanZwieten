@@ -1,5 +1,6 @@
 ﻿using Scripts.Enemys;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +18,10 @@ namespace Scripts.Towers
         [SerializeField]
         private float _rotationRate;
         [SerializeField]
+        private float _targetVerticalOffset;
+        [SerializeField]
+        private float _weaponFireDelay;
+        [SerializeField]
         private int _cost;
 
         private List<Enemy> _enemiesInRange;
@@ -26,6 +31,7 @@ namespace Scripts.Towers
         {
             _enemiesInRange = new List<Enemy>();
             Enemy.onEnemyExitField += onEnemyExitField;
+
         }
 
         private void onEnemyExitField(Enemy enemy)
@@ -33,7 +39,15 @@ namespace Scripts.Towers
             if (_enemiesInRange.Contains(enemy))
                 _enemiesInRange.Remove(enemy);
             if (target.Equals(enemy))
-                SelectNewTarget();
+                Retarget();
+        }
+
+        private void Retarget()
+        {
+            CeaceFire();
+            target = SelectNewTarget();
+            if (target != null)
+                StartCoroutine(DelayFire(target, _weaponFireDelay));
         }
 
         internal virtual void Update()
@@ -44,29 +58,31 @@ namespace Scripts.Towers
 
         private void SlewTo(Enemy target)
         {
-            var targetDirection = target.transform.position - _xRotate.transform.position;
+            var targetPosition = target.transform.position + new Vector3(0, _targetVerticalOffset);
+            var targetDirection = targetPosition - _xRotate.transform.position;
 
             Debug.DrawRay(_xRotate.transform.position, targetDirection, Color.green);
 
-            var yRotation = Quaternion.LookRotation(targetDirection);
-            yRotation = Quaternion.Slerp(_yRotate.transform.rotation, yRotation, Time.deltaTime * _rotationRate);
+            var rotation = Quaternion.LookRotation(targetDirection);
+
+            var yRotation = Quaternion.Slerp(_yRotate.transform.rotation, rotation, Time.deltaTime * _rotationRate);
             _yRotate.transform.rotation = Quaternion.Euler(new Vector3(0, yRotation.eulerAngles.y, 0));
 
-            var xRotation = Quaternion.LookRotation(targetDirection);
-            xRotation = Quaternion.Slerp(_xRotate.transform.rotation, xRotation, Time.deltaTime * _rotationRate);
+            var xRotation = Quaternion.Slerp(_xRotate.transform.rotation, rotation, Time.deltaTime * _rotationRate);
             _xRotate.transform.localRotation = Quaternion.Euler(new Vector3(xRotation.eulerAngles.x, 0, 0));
-
         }
+
+        protected abstract void Fire(Enemy target);
 
         public virtual void OnEnemyEnter(Collider collider)
         {
-            var enemy=collider.GetComponent<Enemy>();
+            var enemy = collider.GetComponent<Enemy>();
             if (enemy != null)
             {
                 _enemiesInRange.Add(enemy);
 
                 if (target == null)
-                    target = enemy;
+                    Retarget();
             }
         }
 
@@ -78,13 +94,23 @@ namespace Scripts.Towers
                 _enemiesInRange.Remove(enemy);
 
                 if (target.Equals(enemy))
-                    target = SelectNewTarget();
+                {
+                    Retarget();
+                }
             }
         }
+
+        protected abstract void CeaceFire();
 
         private Enemy SelectNewTarget()
         {
             return EnemyManager.Instance.Enemies.FirstOrDefault(enemy => _enemiesInRange.Contains(enemy));
+        }
+
+        private IEnumerator DelayFire(Enemy enemy, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            Fire(enemy);
         }
     }
 }

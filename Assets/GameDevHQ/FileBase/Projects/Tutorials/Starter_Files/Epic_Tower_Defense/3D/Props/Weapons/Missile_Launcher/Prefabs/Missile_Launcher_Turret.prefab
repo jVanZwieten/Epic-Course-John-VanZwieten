@@ -861,7 +861,9 @@ MonoBehaviour:
   _rangeSphere: {fileID: 3974421172091386883}
   _yRotate: {fileID: 1530330881940990}
   _xRotate: {fileID: 1174427222466892}
-  _rotationRate: 3
+  _rotationRate: 2.5
+  _targetVerticalOffset: 0.75
+  _weaponFireDelay: 1
   _cost: 0
   _missilePrefab: {fileID: 1408549652012730, guid: 6f244204e60f45647b263f4edda01147,
     type: 3}
@@ -876,8 +878,8 @@ MonoBehaviour:
   _launchSpeed: 10
   _power: 20
   _fuseDelay: 0
-  _reloadTime: 0
-  _destroyTime: 10
+  _reloadTime: 1
+  _destroyTime: 4
 --- !u!1 &1873951908610878
 GameObject:
   m_ObjectHideFlags: 0
