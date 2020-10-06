@@ -10,9 +10,9 @@ namespace GameDevHQ.FileBase.Missle_Launcher
     public class Missle_Launcher : Tower
     {
         [SerializeField]
-        private UnityEngine.GameObject _missilePrefab; //holds the missle gameobject to clone
+        private GameObject _missilePrefab; //holds the missle gameobject to clone
         [SerializeField]
-        private UnityEngine.GameObject[] _misslePositions; //array to hold the rocket positions on the turret
+        private GameObject[] _misslePositions; //array to hold the rocket positions on the turret
         [SerializeField]
         private float _fireDelay; //fire delay between rockets
         [SerializeField]
@@ -27,23 +27,19 @@ namespace GameDevHQ.FileBase.Missle_Launcher
         private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
 
-        internal override void Update()
-        {
-            base.Update();
-        }
 
         IEnumerator FireRocketsRoutine()
         {
             for (int i = 0; i < _misslePositions.Length; i++) //for loop to iterate through each missle position
             {
-                UnityEngine.GameObject rocket = Instantiate(_missilePrefab) as UnityEngine.GameObject; //instantiate a rocket
+                GameObject rocket = Instantiate(_missilePrefab) as GameObject; //instantiate a rocket
 
                 rocket.transform.parent = _misslePositions[i].transform; //set the rockets parent to the missle launch position 
                 rocket.transform.localPosition = Vector3.zero; //set the rocket position values to zero
                 rocket.transform.localEulerAngles = new Vector3(-90, 0, 0); //set the rotation values to be properly aligned with the rockets forward direction
                 rocket.transform.parent = null; //set the rocket parent to null
 
-                rocket.GetComponent<GameDevHQ.FileBase.Missle_Launcher.Missle.Missle>().AssignMissleRules(_launchSpeed, _power, _fuseDelay, _destroyTime); //assign missle properties 
+                rocket.GetComponent<Missle.Missle>().AssignMissleRules(_launchSpeed, _power, _fuseDelay, _destroyTime); //assign missle properties
 
                 _misslePositions[i].SetActive(false); //turn off the rocket sitting in the turret to make it look like it fired
 
@@ -61,13 +57,17 @@ namespace GameDevHQ.FileBase.Missle_Launcher
 
         protected override void Fire(Enemy target)
         {
+            base.Fire(target);
+
             _launched = true; //set the launch bool to true
             StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
         }
 
         protected override void CeaceFire()
         {
-            
+            base.CeaceFire();
+
+            StopAllCoroutines();
         }
     }
 }

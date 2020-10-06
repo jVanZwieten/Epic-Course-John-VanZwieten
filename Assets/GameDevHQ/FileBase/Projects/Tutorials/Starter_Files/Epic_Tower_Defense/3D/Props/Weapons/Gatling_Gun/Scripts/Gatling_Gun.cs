@@ -22,7 +22,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
     public class Gatling_Gun : Tower
     {
         private Transform _gunBarrel; //Reference to hold the gun barrel
-        public UnityEngine.GameObject Muzzle_Flash; //reference to the muzzle flash effect to play when firing
+        public GameObject Muzzle_Flash; //reference to the muzzle flash effect to play when firing
         public ParticleSystem bulletCasings; //reference to the bullet casing effect to play when firing
         public AudioClip fireSound; //Reference to the audio clip
 
@@ -34,27 +34,20 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         {
             base.Start();
 
-            _gunBarrel = UnityEngine.GameObject.Find("Barrel_to_Spin").GetComponent<Transform>(); //assigning the transform of the gun barrel to the variable
+            _gunBarrel = GameObject.Find("Barrel_to_Spin").GetComponent<Transform>(); //assigning the transform of the gun barrel to the variable
             Muzzle_Flash.SetActive(false); //setting the initial state of the muzzle flash effect to off
-            _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
+            _audioSource = GetComponent<AudioSource>(); //assign the Audio Source to the reference variable
             _audioSource.playOnAwake = false; //disabling play on awake
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = fireSound; //assign the clip to play
+            _audioSource.volume = .3f;
         }
 
-        // Update is called once per frame
-        internal override void Update()
-        {
-            base.Update();
-
-
-
-            //}
-
-        }
 
         protected override void Fire(Enemy target)
         {
+            base.Fire(target);
+
             RotateBarrel(); //Call the rotation function responsible for rotating our gun barrel
             Muzzle_Flash.SetActive(true); //enable muzzle effect particle effect
             bulletCasings.Emit(1); //Emit the bullet casing particle effect  
@@ -68,6 +61,8 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         protected override void CeaceFire()
         {
+            base.CeaceFire();
+
             Muzzle_Flash.SetActive(false); //turn off muzzle flash particle effect
             _audioSource.Stop(); //stop the sound effect from playing
             _startWeaponNoise = true; //set the start weapon noise value to true

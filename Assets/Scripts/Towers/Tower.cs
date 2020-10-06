@@ -22,38 +22,40 @@ namespace Scripts.Towers
         [SerializeField]
         private float _weaponFireDelay;
         [SerializeField]
+        private int _weaponDamage;
+        [SerializeField]
         private int _cost;
 
         private List<Enemy> _enemiesInRange;
-        private Enemy target;
+        private Enemy _target;
+        private IEnumerator _damageCoroutine;
 
         internal virtual void Start()
         {
             _enemiesInRange = new List<Enemy>();
-            Enemy.onEnemyExitField += onEnemyExitField;
-
+            Enemy.onEnemyKilled += onEnemyKilled;
         }
 
-        private void onEnemyExitField(Enemy enemy)
+        private void onEnemyKilled(Enemy enemy)
         {
             if (_enemiesInRange.Contains(enemy))
                 _enemiesInRange.Remove(enemy);
-            if (target.Equals(enemy))
+            if (_target!=null && _target.Equals(enemy))
                 Retarget();
         }
 
         private void Retarget()
         {
             CeaceFire();
-            target = SelectNewTarget();
-            if (target != null)
-                StartCoroutine(DelayFire(target, _weaponFireDelay));
+            _target = SelectNewTarget();
+            if (_target != null)
+                StartCoroutine(DelayFire(_target, _weaponFireDelay));
         }
 
         internal virtual void Update()
         {
-            if (target != null)
-                SlewTo(target);
+            if (_target != null)
+                SlewTo(_target);
         }
 
         private void SlewTo(Enemy target)
@@ -72,7 +74,21 @@ namespace Scripts.Towers
             _xRotate.transform.localRotation = Quaternion.Euler(new Vector3(xRotation.eulerAngles.x, 0, 0));
         }
 
-        protected abstract void Fire(Enemy target);
+        protected virtual void Fire(Enemy target)
+        {
+            _damageCoroutine = InflictDamage(target);
+            StartCoroutine(_damageCoroutine);
+        }
+
+        protected virtual IEnumerator InflictDamage(Enemy target)
+        {
+            while (true)
+            {
+                target.ReceiveDamage(_weaponDamage);
+                Debug.Log($"Inflicted: {_weaponDamage} damage to: {target.GetType()}.");
+                yield return new WaitForSeconds(1);
+            }
+        }
 
         public virtual void OnEnemyEnter(Collider collider)
         {
@@ -81,7 +97,7 @@ namespace Scripts.Towers
             {
                 _enemiesInRange.Add(enemy);
 
-                if (target == null)
+                if (_target == null)
                     Retarget();
             }
         }
@@ -93,14 +109,18 @@ namespace Scripts.Towers
             {
                 _enemiesInRange.Remove(enemy);
 
-                if (target.Equals(enemy))
+                if (_target.Equals(enemy))
                 {
                     Retarget();
                 }
             }
         }
 
-        protected abstract void CeaceFire();
+        protected virtual void CeaceFire()
+        {
+            if (_damageCoroutine != null)
+                StopCoroutine(_damageCoroutine);
+        }
 
         private Enemy SelectNewTarget()
         {
@@ -111,6 +131,11 @@ namespace Scripts.Towers
         {
             yield return new WaitForSeconds(delay);
             Fire(enemy);
+        }
+
+        private void OnDisable()
+        {
+            Enemy.onEnemyKilled -= onEnemyKilled;
         }
     }
 }

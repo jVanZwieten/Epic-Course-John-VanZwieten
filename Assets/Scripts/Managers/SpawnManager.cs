@@ -23,6 +23,9 @@ namespace Scripts.Managers
         public Transform SpawnLocation { get { return _spawnLocation; } }
         [SerializeField]
         private Transform _enemyDestination;
+
+        private int _enemyCount;
+
         public Transform EnemyDestination { get { return _enemyDestination; } }
 
         
@@ -30,6 +33,8 @@ namespace Scripts.Managers
         {
             GameObject enemy = Instantiate(_enemyPrefabs[(int)enemyType], SpawnLocation.position, SpawnLocation.rotation);
             enemy.transform.parent = _enemycontainer;
+            enemy.name = $"Enemy{_enemyCount}";
+            _enemyCount++;
 
             return enemy;
         }
@@ -37,6 +42,7 @@ namespace Scripts.Managers
         private void Start()
         {
             StartCoroutine(SpawnWaves(_waves));
+            _enemyCount = 0;
         }
 
         private IEnumerator SpawnWaves(int waves)

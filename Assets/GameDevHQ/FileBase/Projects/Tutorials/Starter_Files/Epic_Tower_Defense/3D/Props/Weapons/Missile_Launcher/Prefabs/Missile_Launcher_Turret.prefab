@@ -864,6 +864,7 @@ MonoBehaviour:
   _rotationRate: 2.5
   _targetVerticalOffset: 0.75
   _weaponFireDelay: 1
+  _weaponDamage: 3
   _cost: 0
   _missilePrefab: {fileID: 1408549652012730, guid: 6f244204e60f45647b263f4edda01147,
     type: 3}
@@ -973,7 +974,7 @@ GameObject:
   - component: {fileID: 2785614704697489749}
   - component: {fileID: 6642088466297113626}
   - component: {fileID: 4138240936353624827}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: range sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

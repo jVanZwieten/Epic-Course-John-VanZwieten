@@ -15,6 +15,7 @@ namespace Scripts.Managers
         private bool _towerPlacementMode;
         private bool _buildIsAllowed;
         private TowerGhost _towerGhost;
+        private int _towerCount;
 
         private bool mouseMoved => Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0;
 
@@ -32,6 +33,7 @@ namespace Scripts.Managers
         void Start()
         {
             _towerPlacementMode = false;
+            _towerCount = 0;
             TowerSlot.onTowerGhostSnapToSlot += OnTowerGhostSnapToSlot;
         }
 
@@ -61,8 +63,10 @@ namespace Scripts.Managers
             var newTowerPrefab = _buildableTowers[towerOption];
 
             var newTower = Instantiate(newTowerPrefab, _towerGhost.transform.position, _towerGhost.transform.rotation);
+            newTower.name = $"Tower{_towerCount}";
+            _towerCount++;
 
-            onTowerBuilt(newTower);
+            onTowerBuilt?.Invoke(newTower);
         }
 
         private void EnterPlacementMode(int towerSelection)

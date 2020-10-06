@@ -1,11 +1,13 @@
 ﻿using Scripts.Managers;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Scripts.Enemys
 {
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Animator))]
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField]
@@ -13,15 +15,18 @@ namespace Scripts.Enemys
         [SerializeField]
         protected int _killValue;
 
-        protected int _health;
+        protected const int _cleanupDelay = 5;
 
-        private NavMeshAgent _navMeshAgent => GetComponent<NavMeshAgent>();
+        protected int _health;
+        protected Animator _animator;
+
+        private NavMeshAgent _navMeshAgent;
 
         private Transform _spawnLocation => SpawnManager.Instance.SpawnLocation;
         private Transform _destination => SpawnManager.Instance.EnemyDestination;
 
         public static event Action<Enemy> onEnemyEnterField;
-        public static event Action<Enemy> onEnemyExitField;
+        public static event Action<Enemy> onEnemyKilled;
 
         public virtual void NavigateTo(Transform destination)
         {
@@ -37,6 +42,7 @@ namespace Scripts.Enemys
         {
             Warp(_spawnLocation);
             Heal();
+            _animator.SetTrigger("Recycle");
         }
 
         public virtual void Warp(Transform warpLocation)
@@ -45,16 +51,47 @@ namespace Scripts.Enemys
             transform.rotation = warpLocation.rotation;
         }
 
+        protected void Awake()
+        {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
+        }
+
         protected virtual void OnEnable()
         {
             Recycle();
             NavigateTo(_destination);
-            onEnemyEnterField(this);
+            onEnemyEnterField?.Invoke(this);
         }
 
-        protected virtual void Destroy()
+        protected virtual void Kill()
         {
-            onEnemyExitField(this);
+            _animator.SetTrigger("Death");
+
+            _navMeshAgent.isStopped = true;
+
+            Debug.Log($"A {this.GetType()} died.");
+            onEnemyKilled?.Invoke(this);
+
+            StartCoroutine(Cleanup(_cleanupDelay));
+        }
+
+        protected virtual IEnumerator Cleanup(int cleanupDelay)
+        {
+            yield return new WaitForSeconds(cleanupDelay);
+            Dissolve();
+        }
+
+        private void Dissolve()
+        {
+            this.gameObject.SetActive(false);
+        }
+
+        internal void ReceiveDamage(int weaponDamage)
+        {
+            _health -= weaponDamage;
+            if (_health < 0)
+                Kill();
         }
     }
 

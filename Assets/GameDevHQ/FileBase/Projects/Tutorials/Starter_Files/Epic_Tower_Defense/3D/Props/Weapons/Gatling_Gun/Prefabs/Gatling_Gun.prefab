@@ -5079,6 +5079,7 @@ MonoBehaviour:
   _rotationRate: 3
   _targetVerticalOffset: 0.75
   _weaponFireDelay: 0.5
+  _weaponDamage: 1
   _cost: 10
   Muzzle_Flash: {fileID: 1905276477678454}
   bulletCasings: {fileID: 198239830521320308}
@@ -14972,7 +14973,7 @@ GameObject:
   - component: {fileID: 7170345564215891466}
   - component: {fileID: 6935916222247269964}
   - component: {fileID: 1704383479236384086}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: range sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
